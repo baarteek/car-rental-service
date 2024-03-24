@@ -5,7 +5,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Date;
 
-@Table("Payments")
+@Table("payments")
 public class Payment {
     @Id
     private Integer paymentID;

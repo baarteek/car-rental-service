@@ -3,7 +3,7 @@ package com.example.car.rental.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table("Reviews")
+@Table("reviews")
 public class Review {
     @Id
     private Integer reviewID;
