@@ -12,6 +12,7 @@ public class Rental {
     private Integer rentalID;
     private Integer customerID;
     private Integer vehicleID;
+    private Integer insuranceID;
     private Date startDate;
     private Date endDate;
     private String status;
@@ -82,5 +83,13 @@ public class Rental {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public Integer getInsuranceID() {
+        return insuranceID;
+    }
+
+    public void setInsuranceID(Integer insuranceID) {
+        this.insuranceID = insuranceID;
     }
 }

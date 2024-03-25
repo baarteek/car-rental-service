@@ -9,6 +9,7 @@ import java.util.Date;
 public class Vehicle {
     @Id
     private Integer vehicleID;
+    private Integer insuranceID;
     private String brand;
     private String model;
     private Integer yearOfManufacture;
@@ -91,5 +92,13 @@ public class Vehicle {
 
     public void setLastServiceDate(Date lastServiceDate) {
         this.lastServiceDate = lastServiceDate;
+    }
+
+    public Integer getInsuranceID() {
+        return insuranceID;
+    }
+
+    public void setInsuranceID(Integer insuranceID) {
+        this.insuranceID = insuranceID;
     }
 }

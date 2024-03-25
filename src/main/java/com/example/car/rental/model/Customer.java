@@ -9,22 +9,10 @@ import java.util.Date;
 public class Customer {
     @Id
     private Integer customerID;
+    private Integer userID;
     private String firstName;
     private String lastName;
-    private String email;
-    private String password;
     private String phoneNumber;
-    private Date createdAt;
-
-    public Customer() {}
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
 
     public Integer getCustomerID() {
         return customerID;
@@ -32,6 +20,14 @@ public class Customer {
 
     public void setCustomerID(Integer customerID) {
         this.customerID = customerID;
+    }
+
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
     public String getFirstName() {
@@ -48,22 +44,6 @@ public class Customer {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getPhoneNumber() {
