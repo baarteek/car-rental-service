@@ -32,5 +32,17 @@ public class CustomerService {
     public void deleteCustomerById(Integer id) {
         customerRepository.deleteById(id);
     }
-    
+
+    public Customer updateCustomer(Integer id, Customer updatedCustomer) {
+        Optional<Customer> customerOptional = customerRepository.findById(id);
+        if(customerOptional.isPresent()) {
+            Customer customer = customerOptional.get();
+            customer.setUserID(updatedCustomer.getUserID());
+            customer.setFirstName(updatedCustomer.getFirstName());
+            customer.setLastName(updatedCustomer.getLastName());
+            customer.setPhoneNumber(updatedCustomer.getPhoneNumber());
+            return customerRepository.save(customer);
+        }
+        return  null;
+    }
 }
