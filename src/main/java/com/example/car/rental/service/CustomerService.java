@@ -5,6 +5,8 @@ import com.example.car.rental.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CustomerService {
     @Autowired
@@ -21,4 +23,14 @@ public class CustomerService {
     public Iterable<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
+
+    public Customer getCustomerById(Integer id) {
+        Optional<Customer> customer = customerRepository.findById(id);
+        return customer.orElse(null);
+    }
+
+    public void deleteCustomerById(Integer id) {
+        customerRepository.deleteById(id);
+    }
+    
 }
