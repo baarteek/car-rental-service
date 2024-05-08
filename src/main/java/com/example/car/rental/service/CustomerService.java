@@ -2,14 +2,12 @@ package com.example.car.rental.service;
 
 import com.example.car.rental.model.Customer;
 import com.example.car.rental.repository.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 public class CustomerService {
-    @Autowired
     private final CustomerRepository  customerRepository;
 
     public CustomerService(CustomerRepository customerRepository) {
