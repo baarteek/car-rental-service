@@ -55,5 +55,4 @@ public class CustomerControllerIntegrationTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
     }
-
 }
