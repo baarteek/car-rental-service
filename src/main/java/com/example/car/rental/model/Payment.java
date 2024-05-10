@@ -1,10 +1,14 @@
 package com.example.car.rental.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Date;
 
+@Setter
+@Getter
 @Table("payments")
 public class Payment {
     @Id
@@ -16,43 +20,4 @@ public class Payment {
 
     public Payment() {}
 
-    public Integer getPaymentID() {
-        return paymentID;
-    }
-
-    public void setPaymentID(Integer paymentID) {
-        this.paymentID = paymentID;
-    }
-
-    public Integer getRentalID() {
-        return rentalID;
-    }
-
-    public void setRentalID(Integer rentalID) {
-        this.rentalID = rentalID;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public Date getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(Date paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
 }
