@@ -17,7 +17,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/customers")
+    @GetMapping("/api/v1/customers")
     public ResponseEntity<Iterable<Customer>> getAllCustomers() {
         Iterable<Customer> customers = customerService.getAllCustomers();
         return ResponseEntity.ok(customers);

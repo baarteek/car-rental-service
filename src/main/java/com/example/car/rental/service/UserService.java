@@ -5,6 +5,7 @@ import com.example.car.rental.model.User;
 import com.example.car.rental.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -46,5 +47,4 @@ public class UserService {
         }
         return null;
     }
-
 }
