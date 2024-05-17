@@ -1,4 +1,4 @@
-package com.example.car.rental.security;
+package com.example.car.rental.config;
 
 import com.example.car.rental.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,6 @@
-package com.example.car.rental.security;
+package com.example.car.rental.config;
 
+import com.example.car.rental.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
