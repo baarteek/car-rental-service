@@ -56,4 +56,21 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .build();
     }
+
+    public AuthenticationResponse oauth2Authenticate(String email) {
+        var user = repository.findByEmail(email)
+                .orElseGet(() -> {
+                    var newUser = User.builder()
+                            .email(email)
+                            .role(Role.USER)
+                            .build();
+                    repository.save(newUser);
+                    return newUser;
+                });
+
+        var jwtToken = jwtService.generateToken(user);
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .build();
+    }
 }
