@@ -23,8 +23,11 @@ public class Vehicle {
     private Integer mileage;
     private Date lastServiceDate;
     private String imageUrl;
-
+    private Integer seats;
+    private Double engineCapacity;
+    private Integer doors;
+    private Integer enginePower;
+    private Double fuelConsumption;
+    private Boolean airConditioning;
     public Vehicle() {}
-
-
 }
