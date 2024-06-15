@@ -20,4 +20,9 @@ public class VehicleService {
                 .filter(vehicle -> "available".equals(vehicle.getStatus()))
                 .collect(Collectors.toList());
     }
+
+    public Vehicle findVehicleById(Integer id) {
+        return vehicleRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vehicle not found with id: " + id));
+    }
 }

@@ -36,6 +36,7 @@ create table if not exists vehicles (
     price_per_day decimal(10, 2) not null,
     mileage int,
     last_service_date date,
+    image_url VARCHAR(255),
     foreign key (insurance_id) references insurance(insurance_id)
 );
 
@@ -73,3 +74,4 @@ create table if not exists reviews (
     comment text,
     foreign key (rental_id) references rentals(rental_id)
 );
+

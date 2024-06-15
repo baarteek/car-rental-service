@@ -22,6 +22,7 @@ public class Vehicle {
     private double pricePerDay;
     private Integer mileage;
     private Date lastServiceDate;
+    private String imageUrl;
 
     public Vehicle() {}
 

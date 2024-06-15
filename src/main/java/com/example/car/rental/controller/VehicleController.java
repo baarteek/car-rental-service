@@ -20,4 +20,10 @@ public class VehicleController {
         List<Vehicle> vehicles = vehicleService.findAvailableVehicles();
         return ResponseEntity.ok(vehicles);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Vehicle> getVehicleById(@PathVariable Integer id) {
+        Vehicle vehicle = vehicleService.findVehicleById(id);
+        return ResponseEntity.ok(vehicle);
+    }
 }

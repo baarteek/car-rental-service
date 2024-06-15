@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .cors().configurationSource(corsConfigurationSource()).and()
                 .authorizeRequests(authz -> authz
                         .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers("/api/v1/vehicles/available").permitAll()
+                        .requestMatchers("/api/v1/vehicles/**").permitAll()
                         .anyRequest().authenticated())
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(userInfo -> userInfo
