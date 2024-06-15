@@ -15,6 +15,11 @@ public class VehicleService {
     @Autowired
     private VehicleRepository vehicleRepository;
 
+    public List<Vehicle> findAllVehicles() {
+        return StreamSupport.stream(vehicleRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+    }
+
     public List<Vehicle> findAvailableVehicles() {
         return StreamSupport.stream(vehicleRepository.findAll().spliterator(), false)
                 .filter(vehicle -> "available".equals(vehicle.getStatus()))
