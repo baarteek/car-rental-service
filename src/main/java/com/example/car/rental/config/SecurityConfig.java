@@ -30,6 +30,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().configurationSource(corsConfigurationSource()).and()
                 .authorizeRequests(authz -> authz
+                        .requestMatchers("/images/**").permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/api/v1/vehicles/**").permitAll()
                         .anyRequest().authenticated())
