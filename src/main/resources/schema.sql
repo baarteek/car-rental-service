@@ -25,21 +25,6 @@ create table if not exists insurance (
 );
 
 
-create table if not exists vehicles (
-    vehicle_id serial primary key,
-    insurance_id int,
-    brand varchar(50) not null,
-    model varchar(80) not null,
-    year_of_manufacture int,
-    registration_number varchar(30) unique not null,
-    status varchar(20) not null check (status in ('available', 'rented', 'in service')),
-    price_per_day decimal(10, 2) not null,
-    mileage int,
-    last_service_date date,
-    image_url VARCHAR(255),
-    foreign key (insurance_id) references insurance(insurance_id)
-);
-
 CREATE TABLE IF NOT EXISTS vehicles (
     vehicle_id SERIAL PRIMARY KEY,
     insurance_id INT,
@@ -60,6 +45,20 @@ CREATE TABLE IF NOT EXISTS vehicles (
     FOREIGN KEY (insurance_id) REFERENCES insurance(insurance_id)
 );
 
+create table if not exists rentals (
+    rental_id serial primary key,
+    customer_id int not null,
+    vehicle_id int not null,
+    insurance_id int,
+    start_date date not null,
+    end_date date not null,
+    status varchar(50) not null check (status in ('active', 'completed')),
+    created_at date,
+    notes text,
+    foreign key (customer_id) references customers(customer_id),
+    foreign key (vehicle_id) references vehicles(vehicle_id),
+    foreign key (insurance_id) references insurance(insurance_id)
+);
 
 create table if not exists payments (
     payment_id serial primary key,

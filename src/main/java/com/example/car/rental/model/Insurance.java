@@ -16,7 +16,4 @@ public class Insurance {
     private String name;
     private String description;
     private double pricePerDay;
-    private Date coverageStartDate;
-    private Date coverageEndDate;
-
 }
