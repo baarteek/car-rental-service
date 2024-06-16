@@ -1,18 +1,12 @@
-create table if not exists users (
-    user_id serial primary key,
-    email varchar(200) not null unique,
-    password text not null,
-    role varchar(50) not null,
-    created_at timestamp default CURRENT_TIMESTAMP
-);
-
-create table if not exists customers (
-    customer_id serial primary key,
-    user_id int,
-    first_name varchar(50) not null,
-    last_name varchar(50) not null,
-    phone_number varchar(15) not null,
-    foreign key (user_id) references users(user_id)
+CREATE TABLE IF NOT EXISTS users (
+    user_id SERIAL PRIMARY KEY,
+    email VARCHAR(200) NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    role VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    phone_number VARCHAR(15) NOT NULL
 );
 
 create table if not exists insurance (
@@ -47,7 +41,7 @@ CREATE TABLE IF NOT EXISTS vehicles (
 
 create table if not exists rentals (
     rental_id serial primary key,
-    customer_id int not null,
+    user_id int not null,
     vehicle_id int not null,
     insurance_id int,
     start_date date not null,
@@ -56,7 +50,7 @@ create table if not exists rentals (
     created_at date,
     notes text,
     foreign key (customer_id) references customers(customer_id),
-    foreign key (vehicle_id) references vehicles(vehicle_id),
+    foreign key (user_id) references users(user_id),
     foreign key (insurance_id) references insurance(insurance_id)
 );
 
