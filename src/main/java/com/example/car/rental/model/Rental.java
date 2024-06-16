@@ -14,7 +14,7 @@ import java.util.Date;
 public class Rental {
     @Id
     private Integer rentalID;
-    private Integer customerID;
+    private Integer userID;
     private Integer vehicleID;
     private Integer insuranceID;
     private Date startDate;
