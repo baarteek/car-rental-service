@@ -29,8 +29,6 @@ public class PayPalController {
 
     @Autowired
     private RentalService rentalService;
-    @Autowired
-    private JwtService jwtService;
 
     @Value("${paypal.success.url}")
     private String successUrl;
@@ -50,13 +48,15 @@ public class PayPalController {
         String startDate = (String) request.get("startDate");
         String endDate = (String) request.get("endDate");
         String notes = (String) request.get("notes");
+        String userId = request.get("userId").toString();  // Dodanie userId z requestu
 
         // Kodowanie parametrów w URL
         String encodedSuccessUrl = successUrl + "?vehicleId=" + URLEncoder.encode(vehicleId.toString(), StandardCharsets.UTF_8.toString()) +
                 "&insuranceId=" + URLEncoder.encode(insuranceId.toString(), StandardCharsets.UTF_8.toString()) +
                 "&startDate=" + URLEncoder.encode(startDate, StandardCharsets.UTF_8.toString()) +
                 "&endDate=" + URLEncoder.encode(endDate, StandardCharsets.UTF_8.toString()) +
-                "&notes=" + URLEncoder.encode(notes != null ? notes : "", StandardCharsets.UTF_8.toString());
+                "&notes=" + URLEncoder.encode(notes != null ? notes : "", StandardCharsets.UTF_8.toString()) +
+                "&userId=" + URLEncoder.encode(userId, StandardCharsets.UTF_8.toString());
 
         try {
             Payment payment = payPalService.createPayment(total, currency, method, intent, description, cancelUrl, encodedSuccessUrl);
@@ -79,11 +79,10 @@ public class PayPalController {
             @RequestParam("insuranceId") String insuranceId,
             @RequestParam("startDate") String startDate,
             @RequestParam("endDate") String endDate,
-            @RequestParam(value = "notes", required = false) String notes) {
+            @RequestParam(value = "notes", required = false) String notes,
+            @RequestParam("userId") String userId) {
         try {
-            // Użyj userId na sztywno ustawionego na 42
-            String userId = "42";
-            System.out.println(userId);
+            System.out.println("User ID: " + userId);
 
             Payment payment = payPalService.executePayment(paymentId, payerId);
             if (payment.getState().equals("approved")) {
