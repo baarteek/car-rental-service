@@ -13,6 +13,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.apache.commons.lang3.RandomStringUtils;
+
 
 @Service
 @RequiredArgsConstructor
@@ -58,21 +60,27 @@ public class AuthenticationService {
                 .build();
     }
 
+    private String generateRandomPassword() {
+        return RandomStringUtils.randomAlphanumeric(10);
+    }
+
     public AuthenticationResponse oauth2Authenticate(String email) {
         var user = repository.findByEmail(email)
                 .orElseGet(() -> {
+                    var randomPassword = generateRandomPassword();
                     var newUser = User.builder()
                             .email(email)
+                            .password(passwordEncoder.encode(randomPassword))
                             .role(Role.USER)
                             .build();
                     repository.save(newUser);
                     return newUser;
                 });
 
-
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .userId(user.getUserID())
                 .build();
     }
 }

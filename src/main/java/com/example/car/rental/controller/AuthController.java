@@ -8,6 +8,10 @@ import com.example.car.rental.security.AuthenticationResponse;
 import com.example.car.rental.security.RegisterRequest;
 import com.example.car.rental.service.AuthenticationService;
 import com.example.car.rental.service.JwtService;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +20,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.Map;
 
 @RestController
@@ -25,6 +30,7 @@ public class AuthController {
     private final AuthenticationService service;
     private final JwtService jwtService;
     private final UserRepository userRepository;
+    private static final String CLIENT_ID = "397639903179-pjtd5jcqghmi0624a3n3ulegor5lv294.apps.googleusercontent.com";
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
@@ -34,5 +40,31 @@ public class AuthController {
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(service.authenticate(request));
+    }
+
+    @PostMapping("/google")
+    public ResponseEntity<AuthenticationResponse> googleLogin(@RequestBody Map<String, String> body) {
+        String token = body.get("token");
+        String email = verifyGoogleTokenAndGetEmail(token);
+        AuthenticationResponse response = service.oauth2Authenticate(email);
+        return ResponseEntity.ok(response);
+    }
+
+    private String verifyGoogleTokenAndGetEmail(String token) {
+        try {
+            GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new JacksonFactory())
+                    .setAudience(Collections.singletonList(CLIENT_ID))
+                    .build();
+
+            GoogleIdToken idToken = verifier.verify(token);
+            if (idToken != null) {
+                GoogleIdToken.Payload payload = idToken.getPayload();
+                return payload.getEmail();
+            } else {
+                throw new RuntimeException("Invalid Google token");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error verifying Google token", e);
+        }
     }
 }
