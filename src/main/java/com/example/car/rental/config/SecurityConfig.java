@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -34,21 +33,14 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/api/v1/vehicles/**").permitAll()
                         .requestMatchers("/api/v1/insurance/**").permitAll()
+                        .requestMatchers("/api/v1/rentals/**").permitAll()
+                        .requestMatchers("/api/v1/paypal/**").permitAll()
                         .anyRequest().authenticated())
-                .oauth2Login(oauth2 -> oauth2
-                        .userInfoEndpoint(userInfo -> userInfo
-                                .oidcUserService(oidcUserService()))
-                        .defaultSuccessUrl("/api/v1/auth/oauth2-success", true))
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
-    }
-
-    @Bean
-    public OidcUserService oidcUserService() {
-        return new OidcUserService();
     }
 
     @Bean
@@ -61,5 +53,5 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
-    }
-}
+    }}
+

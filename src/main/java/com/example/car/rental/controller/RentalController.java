@@ -21,7 +21,7 @@ public class RentalController {
                                                @RequestParam Date startDate,
                                                @RequestParam Date endDate,
                                                @RequestParam(required = false) String notes) {
-        Rental rental = rentalService.createRenal(userId, vehicleId, insuranceId, startDate, endDate, notes);
+        Rental rental = rentalService.createRental(userId, vehicleId, insuranceId, startDate, endDate, notes);
         return ResponseEntity.ok(rental);
     }
 

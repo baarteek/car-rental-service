@@ -29,7 +29,7 @@ public class RentalService {
     @Autowired
     private InsuranceRepository insuranceRepository;
 
-    public Rental createRenal(Integer userId, Integer vehicleId, Integer insuranceId, Date startDate, Date endDate, String notes) {
+    public Rental createRental(Integer userId, Integer vehicleId, Integer insuranceId, Date startDate, Date endDate, String notes) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         Vehicle vehicle = vehicleRepository.findById(vehicleId).orElseThrow(() -> new RuntimeException("Vehicle not found"));
         Insurance insurance = insuranceRepository.findById(insuranceId).orElseThrow(() -> new RuntimeException("Insurance not found"));
@@ -47,6 +47,7 @@ public class RentalService {
         rental.setInsuranceID(insurance.getInsuranceID());
         rental.setStartDate(startDate);
         rental.setEndDate(endDate);
+        rental.setStatus("active");
         rental.setNotes(notes);
 
         return rentalRepository.save(rental);
