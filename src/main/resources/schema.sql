@@ -46,7 +46,7 @@ create table if not exists rentals (
     insurance_id int,
     start_date date not null,
     end_date date not null,
-    status varchar(50) not null check (status in ('active', 'completed')),
+    status varchar(50) check (status in ('active', 'completed')),
     created_at date,
     notes text,
     foreign key (customer_id) references customers(customer_id),
