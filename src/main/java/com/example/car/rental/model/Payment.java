@@ -17,6 +17,7 @@ public class Payment {
     private double amount;
     private Date paymentDate;
     private String paymentMethod;
+    private Boolean paymentStatus;
 
     public Payment() {}
 

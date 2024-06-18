@@ -22,7 +22,7 @@ public class RentalStatusUpdateService {
     private final RentalRepository rentalRepository;
     private final VehicleRepository vehicleRepository;
 
-    @Scheduled(cron = "0 0 0 * * ?")
+    @Scheduled(cron = "0 * * * * ?") // Co 1 minutę
     @Transactional
     public void updateRentalStatuses() {
         LocalDateTime now = LocalDateTime.now();

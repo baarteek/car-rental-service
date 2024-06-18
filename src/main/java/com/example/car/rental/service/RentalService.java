@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional
@@ -41,8 +43,6 @@ public class RentalService {
             throw new RuntimeException("Vehicle not available");
         }
 
-        vehicle.setStatus("rented");
-        vehicleRepository.save(vehicle);
 
         Rental rental = new Rental();
         rental.setUserID(user.getUserID());
@@ -63,5 +63,12 @@ public class RentalService {
         Rental rental = rentalRepository.findById(rentalId).orElseThrow(() -> new RuntimeException("Rental not found"));
         rental.setStatus("completed");
         return rentalRepository.save(rental);
+    }
+
+    public List<Rental> getFutureRentalsByVehicleId(Integer vehicleId) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, -1);
+        Date yesterday = calendar.getTime();
+        return rentalRepository.findByVehicleIDAndEndDateAfter(vehicleId, yesterday);
     }
 }

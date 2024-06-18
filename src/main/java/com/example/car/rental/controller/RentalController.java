@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/rentals")
@@ -29,5 +30,11 @@ public class RentalController {
     public ResponseEntity<Rental> completeRental(@PathVariable Integer rentalId) {
         Rental rental = rentalService.completeRental(rentalId);
         return ResponseEntity.ok(rental);
+    }
+
+    @GetMapping("/vehicle/{vehicleId}/future")
+    public ResponseEntity<List<Rental>> getFutureRentalsByVehicleId(@PathVariable Integer vehicleId) {
+        List<Rental> rentals = rentalService.getFutureRentalsByVehicleId(vehicleId);
+        return ResponseEntity.ok(rentals);
     }
 }

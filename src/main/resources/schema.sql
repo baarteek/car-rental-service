@@ -54,13 +54,14 @@ create table if not exists rentals (
     foreign key (insurance_id) references insurance(insurance_id)
 );
 
-create table if not exists payments (
-    payment_id serial primary key,
-    rental_id int not null,
-    amount decimal(10, 2) not null,
-    payment_date date not null,
-    payment_method varchar(50) not null,
-    foreign key (rental_id) references rentals(rental_id)
+CREATE TABLE IF NOT EXISTS payments (
+    payment_id SERIAL PRIMARY KEY,
+    rental_id INT NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    payment_date DATE,
+    payment_method VARCHAR(50) NOT NULL,
+    payment_status BOOLEAN NOT NULL DEFAULT FALSE,
+    FOREIGN KEY (rental_id) REFERENCES rentals(rental_id)
 );
 
 create table if not exists reviews (
