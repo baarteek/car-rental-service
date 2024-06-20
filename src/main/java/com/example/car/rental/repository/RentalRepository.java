@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface RentalRepository extends CrudRepository<Rental, Integer> {
     List<Rental> findByVehicleIDAndEndDateAfter(Integer vehicleId, Date date);
+    List<Rental> findByStartDateLessThanEqualAndEndDateGreaterThanEqual(Date endDate, Date startDate);
 }

@@ -99,7 +99,7 @@ public class PayPalController {
     }
 
     @GetMapping("/cancel")
-    public ResponseEntity<String> cancelPay() {
-        return ResponseEntity.ok("Payment cancelled");
+    public RedirectView cancelPay() {
+        return new RedirectView("http://localhost:5173/payment-failure");
     }
 }

@@ -43,7 +43,6 @@ public class RentalService {
             throw new RuntimeException("Vehicle not available");
         }
 
-
         Rental rental = new Rental();
         rental.setUserID(user.getUserID());
         rental.setVehicleID(vehicle.getVehicleID());
