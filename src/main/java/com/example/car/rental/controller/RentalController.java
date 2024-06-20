@@ -18,14 +18,14 @@ public class RentalController {
     private RentalService rentalService;
 
     @PostMapping
-    public ResponseEntity<Rental> createRental(@RequestBody Map<String, Object> requestData) {
+    public ResponseEntity<Rental> createRental(@RequestBody Map<String, String> requestData) {
         try {
-            Integer userId = Integer.parseInt((String) requestData.get("userId"));
-            Integer vehicleId = Integer.parseInt((String) requestData.get("vehicleId"));
-            Integer insuranceId = Integer.parseInt((String) requestData.get("insuranceId"));
-            String startDateStr = (String) requestData.get("startDate");
-            String endDateStr = (String) requestData.get("endDate");
-            String notes = (String) requestData.get("notes");
+            Integer userId = Integer.parseInt(requestData.get("userId"));
+            Integer vehicleId = Integer.parseInt(requestData.get("vehicleId"));
+            Integer insuranceId = Integer.parseInt(requestData.get("insuranceId"));
+            String startDateStr = requestData.get("startDate");
+            String endDateStr = requestData.get("endDate");
+            String notes = requestData.get("notes");
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date startDate = dateFormat.parse(startDateStr);

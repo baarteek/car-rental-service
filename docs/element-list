@@ -1,0 +1,7 @@
+com.example.car.rental
+com.example.car.rental.config
+com.example.car.rental.controller
+com.example.car.rental.model
+com.example.car.rental.repository
+com.example.car.rental.security
+com.example.car.rental.service
