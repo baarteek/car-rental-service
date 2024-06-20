@@ -38,7 +38,7 @@ public class PayPalController {
 
     @PostMapping("/pay")
     public ResponseEntity<String> pay(@RequestBody Map<String, Object> request) throws UnsupportedEncodingException {
-        double total = ((Number) request.get("total")).doubleValue();
+        String total = request.get("total").toString();
         String currency = (String) request.get("currency");
         String method = (String) request.get("method");
         String intent = (String) request.get("intent");
@@ -48,9 +48,8 @@ public class PayPalController {
         String startDate = (String) request.get("startDate");
         String endDate = (String) request.get("endDate");
         String notes = (String) request.get("notes");
-        String userId = request.get("userId").toString();  // Dodanie userId z requestu
+        String userId = request.get("userId").toString();
 
-        // Kodowanie parametrów w URL
         String encodedSuccessUrl = successUrl + "?vehicleId=" + URLEncoder.encode(vehicleId.toString(), StandardCharsets.UTF_8.toString()) +
                 "&insuranceId=" + URLEncoder.encode(insuranceId.toString(), StandardCharsets.UTF_8.toString()) +
                 "&startDate=" + URLEncoder.encode(startDate, StandardCharsets.UTF_8.toString()) +

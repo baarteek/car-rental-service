@@ -35,6 +35,13 @@ public class RentalService {
     private RentalStatusUpdateService rentalStatusUpdateService;
 
     public Rental createRental(Integer userId, Integer vehicleId, Integer insuranceId, Date startDate, Date endDate, String notes) {
+
+        System.out.println("Received userId: " + userId);
+        System.out.println("Received vehicleId: " + vehicleId);
+        System.out.println("Received insuranceId: " + insuranceId);
+        System.out.println("Received startDate: " + startDate);
+        System.out.println("Received endDate: " + endDate);
+
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         Vehicle vehicle = vehicleRepository.findById(vehicleId).orElseThrow(() -> new RuntimeException("Vehicle not found"));
         Insurance insurance = insuranceRepository.findById(insuranceId).orElseThrow(() -> new RuntimeException("Insurance not found"));

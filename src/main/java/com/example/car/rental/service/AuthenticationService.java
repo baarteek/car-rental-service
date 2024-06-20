@@ -7,14 +7,13 @@ import com.example.car.rental.security.AuthenticationRequest;
 import com.example.car.rental.security.AuthenticationResponse;
 import com.example.car.rental.security.RegisterRequest;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.apache.commons.lang3.RandomStringUtils;
-
 
 @Service
 @RequiredArgsConstructor
@@ -36,9 +35,10 @@ public class AuthenticationService {
                 .role(Role.USER)
                 .build();
         repository.save(user);
-        var jwtToken = jwtService.generateToken(user);
+        var jwtToken = jwtService.generateToken(user, user.getUserID());
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .userId(user.getUserID())
                 .build();
     }
 
@@ -53,7 +53,7 @@ public class AuthenticationService {
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + request.getEmail()));
 
-        var jwtToken = jwtService.generateToken(user);
+        var jwtToken = jwtService.generateToken(user, user.getUserID());
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .userId(user.getUserID())
@@ -77,7 +77,7 @@ public class AuthenticationService {
                     return newUser;
                 });
 
-        var jwtToken = jwtService.generateToken(user);
+        var jwtToken = jwtService.generateToken(user, user.getUserID());
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .userId(user.getUserID())
